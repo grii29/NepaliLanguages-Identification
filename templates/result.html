@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            font-size: 1.1em;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predicted Result</h1>
+
+    <p><strong>Input Text:</strong> {{ text }}</p>
+    <p><strong>Algorithm:</strong> {{ model }}</p>
+    <p><strong>Predicted Language:</strong> {{ prediction }}</p>
+
+    <h2>Model Accuracies</h2>
+    <canvas id="accuracyChart" width="600" height="300"></canvas>
+
+    <script>
+        // Convert Python lists to JS arrays usingrfg
+        const labels = JSON.parse('{{ labels|tojson|safe }}');
+        const data = JSON.parse('{{ values|tojson|safe }}');
+
+        const ctx = document.getElementById('accuracyChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Accuracy',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                        'rgba(153, 102, 255, 0.5)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 1,
+                        ticks: {
+                            stepSize: 0.1,
+                            callback: function(value) { return (value * 100).toFixed(0) + "%"; }
+                        },
+                        title: {
+                            display: true,
+                            text: "Accuracy (%)"
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: "ML Algorithm"
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <a href="/">Back</a>
+</body>
+</html>

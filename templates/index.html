@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Detection Dashboard</title>
+</head>
+<body>
+    <h1>Language Detection Tool</h1>
+    <form method="POST" action = "/">
+        <textarea name="text_input" rows="4" cols ="50" placeholder="Enter text here..."></textarea>
+        <label>Select Algorithm</label>
+        <select id = "model_choice" name="model_choice">
+            {% for model in models %}
+            <option value="{{model}}">{{model}}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Predict Language">
+    </form>
+  
+</body>
+</html>
