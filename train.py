@@ -59,7 +59,7 @@ X_test_vec = vectorizer.transform(X_test)
 #Train models 
 models = {
     "MultinomialNB": MultinomialNB().fit(X_train_vec, y_train),
-    "kNN": KNeighborsClassifier(n_neighbors=3).fit(X_train_vec, y_train),
+    "kNN": KNeighborsClassifier(n_neighbors=5).fit(X_train_vec, y_train),
     "DecisionTree": DecisionTreeClassifier(random_state=42).fit(X_train_vec, y_train),
     "RandomForest": RandomForestClassifier(n_estimators=5, random_state=42).fit(X_train_vec, y_train),
     "SVM": LinearSVC(random_state=42, max_iter=5000).fit(X_train_vec, y_train)
