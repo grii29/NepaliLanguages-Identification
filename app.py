@@ -19,6 +19,7 @@ model_names = ["MultinomialNB", "kNN", "DecisionTree", "RandomForest", "SVM"]
 models = {name: joblib.load(f"models/{name}.joblib") for name in model_names}
 accuracy_dict = joblib.load("models/accuracy_dict.joblib")
 
+
 #Convert dict keys/values to Python lists for JS
 labels = list(accuracy_dict.keys())
 values = list(accuracy_dict.values())

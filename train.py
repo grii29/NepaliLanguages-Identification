@@ -8,7 +8,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 #Load data
 label_map = {
@@ -64,16 +64,33 @@ models = {
     "RandomForest": RandomForestClassifier(n_estimators=5, random_state=42).fit(X_train_vec, y_train),
     "SVM": LinearSVC(random_state=42, max_iter=5000).fit(X_train_vec, y_train)
 }
+#Evaluate metrics
+metrics_dict = {}
+for name, model in models.items():
+    y_pred = model.predict(X_test_vec)
+    
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted')
+    recall = recall_score(y_test, y_pred, average='weighted')
+    f1 = f1_score(y_test, y_pred, average='weighted')
+    
+    metrics_dict[name] = {
+        "accuracy": accuracy,
+        "precision": precision,
+        "recall": recall,
+        "f1_score": f1
+    }
 
-#Compute accuracies
-accuracy_dict = {name: float(accuracy_score(y_test, model.predict(X_test_vec)))
-                 for name, model in models.items()}
+#Print metrics
+for name, metrics in metrics_dict.items():
+    print(f"{name}: Accuracy={metrics['accuracy']:.4f}, Precision={metrics['precision']:.4f}, "
+          f"Recall={metrics['recall']:.4f}, F1={metrics['f1_score']:.4f}")
 
 #Save models and vectorizer
 os.makedirs("models", exist_ok=True)
 joblib.dump(vectorizer, "models/vectorizer.joblib")
 for name, model in models.items():
     joblib.dump(model, f"models/{name}.joblib")
-joblib.dump(accuracy_dict, "models/accuracy_dict.joblib")
+joblib.dump(metrics_dict, "models/metrics_dict.joblib")
 
 print("Training complete and models saved!")
