@@ -60,12 +60,19 @@
         const f1Values = JSON.parse('{{ f1_values|tojson|safe }}');
         const precisionValues = JSON.parse('{{ precision_values|tojson|safe }}');
         const recallValues = JSON.parse('{{ recall_values|tojson|safe }}');
+        const modelColors = [
+            'rgba(54, 162, 235, 0.7)',
+            'rgba(75, 192, 192, 0.7)',
+            'rgba(255, 159, 64, 0.7)',
+            'rgba(153, 102, 255, 0.7)',
+            'rgba(255, 99, 132, 0.7)'
+        ];
 
         const chartsConfig = [
-            {id: 'accuracyChart', label: 'Accuracy', data: accuracyValues, color: 'rgba(54, 162, 235, 0.7)'},
-            {id: 'f1Chart', label: 'F1 Score', data: f1Values, color: 'rgba(75, 192, 192, 0.7)'},
-            {id: 'precisionChart', label: 'Precision', data: precisionValues, color: 'rgba(255, 159, 64, 0.7)'},
-            {id: 'recallChart', label: 'Recall', data: recallValues, color: 'rgba(153, 102, 255, 0.7)'}
+            {id: 'accuracyChart', label: 'Accuracy', data: accuracyValues},
+            {id: 'f1Chart', label: 'F1 Score', data: f1Values},
+            {id: 'precisionChart', label: 'Precision', data: precisionValues},
+            {id: 'recallChart', label: 'Recall', data: recallValues}
         ];
 
         chartsConfig.forEach(cfg => {
@@ -77,7 +84,7 @@
                     datasets: [{
                         label: cfg.label,
                         data: cfg.data,
-                        backgroundColor: cfg.color
+                        backgroundColor: modelColors.slice(0, labels.length)
                     }]
                 },
                 options: {
