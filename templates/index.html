@@ -4,20 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NepMLID: Nepali Mother Language Identification</title>
+    <style>
+         body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;   
+            align-items: center;       
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+        }
+        .main-container {
+            display:flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center; 
+            
+        }
+        textarea {
+            width: 100%;
+            padding: 5px;
+
+        }
+        label{
+            margin-right: 140px;
+            margin-bottom: 5px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;   
+        }
+        select, button {
+            padding: 5px;
+            width: 200px;
+        }
+        
+    </style>
 </head>
 <body>
-    <h1>Nepali Mother Language Identification Tool</h1>
-    <form method="POST" action = "/">
+    <div class = "main-container">
+        <h1>Nepali Mother Language Identification Tool</h1>
+    <form method="POST" action = "/" class = "main-container">
+        <p>Enter your text (Devnagari script):</p>
         <textarea name="text_input" rows="4" cols ="50" placeholder="Enter text here..."></textarea>
         <br><br>
-        <label>Select Algorithm</label>
+        <label>Select Algorithm:</label>
+        <div class="controls">
         <select id = "model_choice" name="model_choice">
             {% for model in models %}
             <option value="{{model}}">{{model}}</option>
             {% endfor %}
         </select><br><br>
         <input type="submit" value="Predict Language">
+        </div>
     </form>
+    </div>
   
 </body>
 </html>
