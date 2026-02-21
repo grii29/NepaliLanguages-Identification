@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prediction Result</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,68 +39,67 @@
     <p><strong>Input Text:</strong> {{ text }}</p>
     <p><strong>Algorithm:</strong> {{ model }}</p>
     <p><strong>Predicted Language:</strong> {{ prediction }}</p>
+    <br><br>
+    <h1>Model Metrics Comparison (All Models)</h1>
+    <br>
+    <h3>Accuracy Comparison</h3>
+    <canvas id="accuracyChart" width="200" height="100"></canvas>
 
-    <h2>Model Accuracies</h2>
-    <canvas id="accuracyChart" width="600" height="300"></canvas>
+    <h3>F1 Score Comparison</h3>
+    <canvas id="f1Chart" width="200" height="100"></canvas>
+
+    <h3>Precision Comparison</h3>
+    <canvas id="precisionChart" width="200" height="100"></canvas>
+
+    <h3>Recall Comparison</h3>
+    <canvas id="recallChart" width="200" height="100"></canvas>
 
     <script>
-        // Convert Python lists to JS arrays usingrfg
         const labels = JSON.parse('{{ labels|tojson|safe }}');
-        const data = JSON.parse('{{ values|tojson|safe }}');
+        const accuracyValues = JSON.parse('{{ accuracy_values|tojson|safe }}');
+        const f1Values = JSON.parse('{{ f1_values|tojson|safe }}');
+        const precisionValues = JSON.parse('{{ precision_values|tojson|safe }}');
+        const recallValues = JSON.parse('{{ recall_values|tojson|safe }}');
 
-        const ctx = document.getElementById('accuracyChart').getContext('2d');
-        const chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Accuracy',
-                    data: data,
-                    backgroundColor: [
-                        'rgba(54, 162, 235, 0.5)',
-                        'rgba(255, 99, 132, 0.5)',
-                        'rgba(255, 206, 86, 0.5)',
-                        'rgba(75, 192, 192, 0.5)',
-                        'rgba(153, 102, 255, 0.5)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { display: false }
+        const chartsConfig = [
+            {id: 'accuracyChart', label: 'Accuracy', data: accuracyValues, color: 'rgba(54, 162, 235, 0.7)'},
+            {id: 'f1Chart', label: 'F1 Score', data: f1Values, color: 'rgba(75, 192, 192, 0.7)'},
+            {id: 'precisionChart', label: 'Precision', data: precisionValues, color: 'rgba(255, 159, 64, 0.7)'},
+            {id: 'recallChart', label: 'Recall', data: recallValues, color: 'rgba(153, 102, 255, 0.7)'}
+        ];
+
+        chartsConfig.forEach(cfg => {
+            const ctx = document.getElementById(cfg.id).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: cfg.label,
+                        data: cfg.data,
+                        backgroundColor: cfg.color
+                    }]
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 1,
-                        ticks: {
-                            stepSize: 0.1,
-                            callback: function(value) { return (value * 100).toFixed(0) + "%"; }
-                        },
-                        title: {
-                            display: true,
-                            text: "Accuracy (%)"
+                options: {
+                    responsive: true,
+                    plugins: {
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'end',
+                            color: '#000',
+                            font: { size: 12 },
+                            formatter: value => value.toFixed(4)
                         }
                     },
-                    x: {
-                        title: {
-                            display: true,
-                            text: "ML Algorithm"
-                        }
+                    scales: {
+                        y: { beginAtZero: true, max: 1 }
                     }
-                }
-            }
+                },
+                plugins: [ChartDataLabels]
+            });
         });
     </script>
+
 
     <a href="/">Back</a>
 </body>
