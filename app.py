@@ -15,8 +15,9 @@ app = Flask(__name__)
 
 #Load vectorizer and models
 vectorizer = joblib.load("models/vectorizer.joblib")
-model_names = ["MultinomialNB", "kNN", "DecisionTree", "RandomForest", "SVM", "TAWA"]
-models = {name: joblib.load(f"models/{name}.joblib") for name in model_names}
+model_names_ml = ["MultinomialNB", "kNN", "DecisionTree", "RandomForest", "SVM"]
+models = {name: joblib.load(f"models/{name}.joblib") for name in model_names_ml}
+model_names = model_names_ml + ["Tawa"]
 metrics_dict = joblib.load("models/metrics_dict.joblib")
 
 #Load Tawa metrics and add to metrics_dict
@@ -56,7 +57,7 @@ def index():
             recall_values=recall_values
             )
 
-    return render_template("index.html", models=models.keys())
+    return render_template("index.html", models=model_names)
 
 if __name__ == "__main__":
     app.run(debug=True)
