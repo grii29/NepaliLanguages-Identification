@@ -1,0 +1,67 @@
+Loading models from file models.dat
+Loading training model from file /Users/Dell/Downloads/Tawa-main/models/nepali.model
+Loading training model from file /Users/Dell/Downloads/Tawa-main/models/bhojpuri.model
+Loading training model from file /Users/Dell/Downloads/Tawa-main/models/newari.model
+Loading training model from file /Users/Dell/Downloads/Tawa-main/models/tamang.model
+Loading training model from file /Users/Dell/Downloads/Tawa-main/models/maithili.model
+Loading training model from file /Users/Dell/Downloads/Tawa-main/models/tharu.model
+Loading data files from file testfiles.dat
+Loading data file from file test_data/nepali_test.txt
+4115773.500 nepali
+4685203.500 bhojpuri
+4522400.500 newari
+4749346.000 tamang
+4453996.000 maithili
+4570898.000 tharu
+The lowest codelength of 4115773.500 on file with label nepali is for tag nepali model named "NEPALI"
+The next lowest codelength of 4453996.000 is for tag maithili model named "MAITHILI"
+Loading data file from file test_data/bhojpuri_test.txt
+2613537.250 nepali
+2176928.000 bhojpuri
+2524903.250 newari
+2522405.000 tamang
+2449647.750 maithili
+2470816.250 tharu
+The lowest codelength of 2176928.000 on file with label bhojpuri is for tag bhojpuri model named "BHOJPURI"
+The next lowest codelength of 2449647.750 is for tag maithili model named "MAITHILI"
+Loading data file from file test_data/newari_test.txt
+1050668.500 nepali
+1021048.375 bhojpuri
+787601.688 newari
+957460.688 tamang
+995707.125 maithili
+955232.938 tharu
+The lowest codelength of 787601.688 on file with label newari is for tag newari model named "NEWARI"
+The next lowest codelength of 955232.938 is for tag tharu model named "THARU"
+Loading data file from file test_data/tamang_test.txt
+946178.938 nepali
+914048.188 bhojpuri
+884837.062 newari
+717119.125 tamang
+905675.500 maithili
+863198.188 tharu
+The lowest codelength of 717119.125 on file with label tamang is for tag tamang model named "TAMANG"
+The next lowest codelength of 863198.188 is for tag tharu model named "THARU"
+Loading data file from file test_data/maithili_test.txt
+1558883.625 nepali
+1560879.875 bhojpuri
+1542258.500 newari
+1553529.125 tamang
+1380100.750 maithili
+1528132.625 tharu
+The lowest codelength of 1380100.750 on file with label maithili is for tag maithili model named "MAITHILI"
+The next lowest codelength of 1528132.625 is for tag tharu model named "THARU"
+Loading data file from file test_data/tharu_test.txt
+652886.188 nepali
+640356.625 bhojpuri
+643297.812 newari
+645697.688 tamang
+638694.438 maithili
+597990.625 tharu
+The lowest codelength of 597990.625 on file with label tharu is for tag tharu model named "THARU"
+The next lowest codelength of 638694.438 is for tag maithili model named "MAITHILI"
+
+
+Overall summary:
+Precision at first rank = 1.000
+

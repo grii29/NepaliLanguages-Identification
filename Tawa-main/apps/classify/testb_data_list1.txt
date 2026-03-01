@@ -1,0 +1,7 @@
+nepali 		test_data/nepalib_test.txt
+bhojpuri	test_data/bhojpurib_test.txt
+newari		test_data/newarib_test.txt
+tamang		test_data/tamangb_test.txt
+maithili	test_data/maithilib_test.txt
+tharu		test_data/tharub_test.txt
+
