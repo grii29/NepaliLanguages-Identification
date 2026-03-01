@@ -19,6 +19,9 @@ model_names = ["MultinomialNB", "kNN", "DecisionTree", "RandomForest", "SVM", "T
 models = {name: joblib.load(f"models/{name}.joblib") for name in model_names}
 metrics_dict = joblib.load("models/metrics_dict.joblib")
 
+#Load Tawa metrics and add to metrics_dict
+with open("models/tawa_metrics.json") as f:
+    metrics_dict["Tawa"] = json.load(f)
 
 labels = list(metrics_dict.keys())
 accuracy_values = [metrics_dict[name]['accuracy'] for name in labels if 'accuracy' in metrics_dict[name]]
