@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 #Load vectorizer and models
 vectorizer = joblib.load("models/vectorizer.joblib")
-model_names = ["MultinomialNB", "kNN", "DecisionTree", "RandomForest", "SVM"]
+model_names = ["MultinomialNB", "kNN", "DecisionTree", "RandomForest", "SVM", "TAWA"]
 models = {name: joblib.load(f"models/{name}.joblib") for name in model_names}
 metrics_dict = joblib.load("models/metrics_dict.joblib")
 
